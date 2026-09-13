@@ -846,7 +846,7 @@
     // -------------------------------------------------------------
     // Firebase Config (તમારી વિગતો અહીં મૂકો)
     // -------------------------------------------------------------
-    const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyBi2WCy7rGfQ5Ie7ckR6SgeVPIsdPFWck8",
     authDomain: "diploma-study-portal.firebaseapp.com",
     databaseURL: "https://diploma-study-portal-default-rtdb.firebaseio.com",
@@ -856,10 +856,14 @@
     appId: "1:233448737809:web:8464a5bc6f1b10221ab5b0",
     measurementId: "G-94H5JZ3C7H"
   };
-
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+    // Google Sign-In વખતે દર વખતે Gmail પસંદ કરવાનું લિસ્ટ લાવવા માટે
+    googleProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
 
     // --- Web Audio API સાઉન્ડ સિસ્ટમ ---
     let soundEnabled = true;
