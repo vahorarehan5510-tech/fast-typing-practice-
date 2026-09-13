@@ -101,31 +101,55 @@
       background: #00c853;
       transform: translateY(-2px);
     }
+
+    /* નવું સુધારેલું પ્રોફાઇલ કાર્ડ (Photo + Name + Gmail + Logout) */
     .user-profile {
       display: none;
       align-items: center;
       gap: 12px;
+      background: #212128;
+      padding: 8px 16px;
+      border-radius: 12px;
+      border: 1px solid #32323e;
     }
     .user-avatar {
-      width: 40px;
-      height: 40px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 2px solid #00e676;
       object-fit: cover;
     }
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
     .user-name {
-      font-size: 15px;
-      color: #ffd600;
+      font-size: 14.5px;
+      color: #fff;
       font-weight: bold;
+      line-height: 1.2;
+    }
+    .user-email-text {
+      font-size: 12px;
+      color: #ffd600;
+      margin-bottom: 4px;
     }
     .btn-logout {
-      background: #242429;
+      background: #282832;
       color: #ff5252;
       border: 1px solid #ff5252;
-      padding: 7px 15px;
-      border-radius: 6px;
+      padding: 3px 10px;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 11.5px;
+      font-weight: bold;
+      width: fit-content;
+      transition: 0.2s;
+    }
+    .btn-logout:hover {
+      background: #ff5252;
+      color: #fff;
     }
 
     /* --- હોમ પેજ --- */
@@ -519,7 +543,6 @@
     }
     .auth-input-large:focus { border-color: #00e676; }
     
-    /* Forgot Password લિંક */
     .forgot-pass-wrap {
       text-align: right;
       margin-top: -6px;
@@ -635,13 +658,18 @@
       
       <button class="sound-btn" id="soundToggleBtn">🔊 Sound: ON</button>
 
+      <!-- યુઝર સેક્શન -->
       <div class="user-section" id="userSection">
         <button class="btn-signin-top" id="openSignInBtn">Sign In</button>
 
+        <!-- પ્રોફાઇલ બોક્સ (Photo, Name, Email અને નીચે Logout બટન) -->
         <div class="user-profile" id="userProfile">
           <img src="" alt="avatar" class="user-avatar" id="userAvatar">
-          <span class="user-name" id="userName"></span>
-          <button class="btn-logout" id="logoutBtn">Logout</button>
+          <div class="user-details">
+            <span class="user-name" id="userName"></span>
+            <span class="user-email-text" id="userEmail"></span>
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+          </div>
         </div>
       </div>
     </div>
@@ -730,35 +758,30 @@
       </div>
 
       <div class="score-dashboard-grid">
-        <!-- 1. Net Speed (WPM) -->
         <div class="stat-card-pro">
           <div class="stat-label">Net Speed (સાચી સ્પીડ)</div>
           <div class="stat-main-val" id="finalWpm" style="color: #00e676;">0 WPM</div>
           <div class="stat-sub-text">ભૂલો બાદ કર્યા પછીની વાસ્તવિક ઝડપ</div>
         </div>
 
-        <!-- 2. Accuracy (%) -->
         <div class="stat-card-pro">
           <div class="stat-label">Accuracy (ચોકસાઈ)</div>
           <div class="stat-main-val" id="finalAccuracy" style="color: #ffd600;">0%</div>
           <div class="stat-sub-text">કુલ ટાઈપિંગમાં સાચા અક્ષરોની ટકાવારી</div>
         </div>
 
-        <!-- 3. Performance Level -->
         <div class="stat-card-pro">
           <div class="stat-label">Performance Rating</div>
           <div class="stat-main-val" id="finalRating" style="color: #40c4ff; font-size: 28px;">Intermediate</div>
           <div class="stat-sub-text">તમારી સ્પીડ મુજબનું રેન્ક સ્તર</div>
         </div>
 
-        <!-- 4. Raw WPM -->
         <div class="stat-card-pro">
           <div class="stat-label">Raw Speed (કુલ સ્પીડ)</div>
           <div class="stat-main-val" id="finalRawWpm">0 WPM</div>
           <div class="stat-sub-text">ભૂલો સહિતની કુલ ઝડપ</div>
         </div>
 
-        <!-- 5. Characters Breakdown -->
         <div class="stat-card-pro">
           <div class="stat-label">Characters Breakdown</div>
           <div class="stat-main-val" style="font-size: 26px;">
@@ -769,7 +792,6 @@
           <div class="stat-sub-text">સાચા / ખોટા / કુલ ટાઈપ અક્ષરો</div>
         </div>
 
-        <!-- 6. Time Spent -->
         <div class="stat-card-pro">
           <div class="stat-label">સમયગાળો (Test Time)</div>
           <div class="stat-main-val" id="finalTimeSpent">0s</div>
@@ -805,7 +827,6 @@
         <input type="password" id="authPassword" class="auth-input-large" placeholder="ઓછામાં ઓછા 6 અક્ષરનો પાસવર્ડ">
       </div>
 
-      <!-- Forgot Password બટન -->
       <div class="forgot-pass-wrap">
         <span class="forgot-pass-link" id="forgotPasswordBtn">પાસવર્ડ ભૂલી ગયા? (Forgot Password)</span>
       </div>
@@ -846,7 +867,7 @@
     // -------------------------------------------------------------
     // Firebase Config (તમારી વિગતો અહીં મૂકો)
     // -------------------------------------------------------------
-   const firebaseConfig = {
+  const firebaseConfig = {
     apiKey: "AIzaSyBi2WCy7rGfQ5Ie7ckR6SgeVPIsdPFWck8",
     authDomain: "diploma-study-portal.firebaseapp.com",
     databaseURL: "https://diploma-study-portal-default-rtdb.firebaseio.com",
@@ -856,11 +877,11 @@
     appId: "1:233448737809:web:8464a5bc6f1b10221ab5b0",
     measurementId: "G-94H5JZ3C7H"
   };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-    // Google Sign-In વખતે દર વખતે Gmail પસંદ કરવાનું લિસ્ટ લાવવા માટે
     googleProvider.setCustomParameters({
       prompt: 'select_account'
     });
@@ -943,6 +964,7 @@
     const userProfile = document.getElementById('userProfile');
     const userAvatar = document.getElementById('userAvatar');
     const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
 
     const reminderToast = document.getElementById('reminderToast');
     const closeToastBtn = document.getElementById('closeToastBtn');
@@ -1006,7 +1028,7 @@
       }
     });
 
-    // --- Forgot Password રીસેટ ઈમેલ મોકલવા માટેનું લોજિક ---
+    // Forgot Password
     forgotPasswordBtn.addEventListener('click', () => {
       const email = authEmail.value.trim();
       if (!email) {
@@ -1036,12 +1058,14 @@
       auth.signOut();
     });
 
+    // લૉગિન થતાં Photo, Name, Email અને Logout બટન દેખાશે
     auth.onAuthStateChanged((user) => {
       currentUser = user;
       if (user) {
         openSignInBtn.style.display = 'none';
         userProfile.style.display = 'flex';
         userName.innerText = user.displayName || user.email.split('@')[0];
+        userEmail.innerText = user.email || '';
         userAvatar.src = user.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + user.uid;
         hideReminder();
         clearInterval(reminderInterval);
