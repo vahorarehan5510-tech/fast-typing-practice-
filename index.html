@@ -2,8 +2,8 @@
 <html lang="gu">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Master Pro - Full Laptop Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Typing Master Pro - Laptop & Mobile Edition</title>
   
   <!-- Firebase SDKs (CDN) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -15,6 +15,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
     body {
       background: #0d0d11;
@@ -23,78 +24,112 @@
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding: 30px 20px;
+      padding: 25px 12px;
+      transition: all 0.3s ease;
     }
 
     .container {
       background: #18181d;
-      padding: 35px 45px;
-      border-radius: 20px;
-      width: 95%;
+      padding: 35px 40px;
+      border-radius: 22px;
+      width: 96%;
       max-width: 1250px;
-      min-height: 88vh;
+      min-height: 90vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
       border: 1px solid #282832;
       position: relative;
     }
 
-    /* નેવિગેશન બાર */
+    /* --- TOP BAR & LARGE DEVICE TOGGLE --- */
     .top-bar {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       margin-bottom: 25px;
-      min-height: 48px;
+      gap: 15px;
+      min-height: 52px;
+    }
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .back-nav {
       display: none;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: #00e676;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s;
     }
     .back-nav:hover {
-      transform: translateX(-5px);
+      transform: translateX(-4px);
     }
-
     .sound-btn {
       background: #212128;
       border: 1px solid #32323e;
       color: #00e676;
-      padding: 8px 18px;
+      padding: 9px 18px;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
-      transition: 0.2s;
-    }
-    .sound-btn:hover {
-      background: #2a2a35;
+      white-space: nowrap;
     }
 
-    /* પ્રોફાઇલ સેક્શન */
+    /* મોટા અને આકર્ષક લેપટોપ vs મોબાઈલ સ્વિચ બટન */
+    .device-switcher {
+      display: flex;
+      background: #101015;
+      border: 2px solid #333342;
+      border-radius: 35px;
+      padding: 5px;
+      gap: 6px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .device-btn {
+      background: transparent;
+      border: none;
+      color: #9e9ea7;
+      padding: 11px 26px;
+      border-radius: 30px;
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .device-btn.active {
+      background: #00e676;
+      color: #0a0a0f;
+      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+      transform: scale(1.03);
+    }
+
+    /* પ્રોફાઇલ સેક્શન (હોમ પેજ પર જ દેખાશે) */
     .user-section {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       margin-left: auto;
     }
     .btn-signin-top {
       background: #00e676;
       color: #0d0d11;
       border: none;
-      padding: 9px 26px;
+      padding: 10px 24px;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 14.5px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
     .btn-signin-top:hover {
       background: #00c853;
@@ -105,13 +140,13 @@
       align-items: center;
       gap: 12px;
       background: #212128;
-      padding: 8px 16px;
+      padding: 6px 15px;
       border-radius: 12px;
       border: 1px solid #32323e;
     }
     .user-avatar {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       border: 2px solid #00e676;
       object-fit: cover;
@@ -122,39 +157,32 @@
       gap: 2px;
     }
     .user-name {
-      font-size: 14px;
+      font-size: 13.5px;
       color: #fff;
       font-weight: bold;
-      line-height: 1.2;
     }
     .user-email-text {
-      font-size: 11.5px;
+      font-size: 11px;
       color: #ffd600;
-      margin-bottom: 4px;
     }
     .btn-logout {
       background: #282832;
       color: #ff5252;
       border: 1px solid #ff5252;
-      padding: 3px 10px;
+      padding: 3px 9px;
       border-radius: 5px;
       cursor: pointer;
       font-size: 11px;
       font-weight: bold;
       width: fit-content;
-      transition: 0.2s;
-    }
-    .btn-logout:hover {
-      background: #ff5252;
-      color: #fff;
+      margin-top: 2px;
     }
 
-    /* --- હોમ પેજ --- */
+    /* --- હોમ સ્ક્રીન --- */
     #homeScreen {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
     }
     .hero-section {
       text-align: center;
@@ -170,20 +198,19 @@
       color: #a8a8b3;
       font-size: 16.5px;
     }
-    
-    /* ૨ મુખ્ય મોડ બોક્સ */
+
     .home-mode-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
+      gap: 26px;
       max-width: 950px;
       width: 100%;
-      margin: 15px auto 35px auto;
+      margin: 10px auto 35px auto;
     }
     .mode-card {
       background: #212128;
       border: 2px solid #30303b;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 28px 24px;
       text-align: center;
       cursor: pointer;
@@ -192,25 +219,15 @@
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      position: relative;
     }
     .mode-card:hover {
       border-color: #00e676;
       transform: translateY(-4px);
       box-shadow: 0 12px 35px rgba(0, 230, 118, 0.15);
     }
-    .mode-icon {
-      font-size: 44px;
-    }
-    .mode-card h3 {
-      font-size: 22px;
-      color: #fff;
-    }
-    .mode-card p {
-      font-size: 13.5px;
-      color: #a8a8b3;
-      line-height: 1.55;
-    }
+    .mode-icon { font-size: 44px; }
+    .mode-card h3 { font-size: 22px; color: #fff; }
+    .mode-card p { font-size: 13.5px; color: #a8a8b3; line-height: 1.55; }
     .mode-badge {
       background: #ffd600;
       color: #0d0d11;
@@ -220,7 +237,7 @@
       border-radius: 20px;
     }
 
-    /* --- વિગતવાર લાંબુ INTRO & COMPLETE ACADEMY GUIDE --- */
+    /* --- ૨ બોક્સની નીચે વિગતવાર માર્ગદર્શિકા --- */
     .spacious-guide {
       max-width: 1020px;
       width: 100%;
@@ -229,15 +246,15 @@
       padding-top: 40px;
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 34px;
     }
     
     .guide-intro-banner {
-      background: #1b1b22;
+      background: #1c1c25;
       border-left: 5px solid #00e676;
       border-radius: 0 14px 14px 0;
       padding: 26px 32px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
     }
     .guide-intro-banner h2 {
       font-size: 24px;
@@ -250,21 +267,19 @@
     .guide-intro-banner p {
       font-size: 15px;
       color: #d1d1dc;
-      line-height: 1.8;
-      margin-bottom: 10px;
+      line-height: 1.85;
+      margin-bottom: 12px;
     }
-    .guide-intro-banner p:last-child {
-      margin-bottom: 0;
-    }
+    .guide-intro-banner p:last-child { margin-bottom: 0; }
 
     .guide-section-block {
+      background: #191920;
+      border: 1px solid #292938;
+      border-radius: 16px;
+      padding: 28px 32px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      background: #191920;
-      border: 1px solid #2a2a36;
-      border-radius: 16px;
-      padding: 26px 30px;
+      gap: 15px;
     }
     .guide-section-block h3 {
       font-size: 20px;
@@ -272,8 +287,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 1px solid #2a2a36;
-      padding-bottom: 10px;
+      border-bottom: 1px solid #292938;
+      padding-bottom: 12px;
     }
     .guide-section-block p {
       font-size: 14.5px;
@@ -283,16 +298,15 @@
 
     .keyboard-keys-pill {
       display: inline-block;
-      background: #252530;
-      border: 1px solid #3d3d4e;
+      background: #252532;
+      border: 1px solid #3e3e52;
       color: #00e676;
       padding: 3px 9px;
       border-radius: 6px;
       font-family: 'Consolas', monospace;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: bold;
       margin: 0 3px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .guide-steps-list {
@@ -308,7 +322,7 @@
       background: #20202a;
       padding: 18px 22px;
       border-radius: 12px;
-      border: 1px solid #313140;
+      border: 1px solid #303040;
     }
     .step-number {
       background: #00e676;
@@ -339,7 +353,7 @@
       background: rgba(255, 82, 82, 0.06);
       border: 1px solid rgba(255, 82, 82, 0.25);
       border-radius: 16px;
-      padding: 24px 30px;
+      padding: 26px 32px;
     }
     .golden-rules-box h3 {
       color: #ff5252;
@@ -356,7 +370,7 @@
       gap: 12px;
       color: #ff8a80;
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.8;
     }
     .golden-rules-box li {
       position: relative;
@@ -370,20 +384,10 @@
       font-weight: bold;
     }
 
-    /* --- કોર્સ સિલેક્શન સ્ક્રીન --- */
-    #courseScreen {
-      display: none;
-      flex: 1;
-    }
-    .course-header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-    .course-header h2 {
-      font-size: 28px;
-      color: #00e676;
-      margin-bottom: 6px;
-    }
+    /* --- કોર્સ સ્ક્રીન --- */
+    #courseScreen { display: none; flex: 1; }
+    .course-header { text-align: center; margin-bottom: 20px; }
+    .course-header h2 { font-size: 28px; color: #00e676; margin-bottom: 6px; }
     .course-progress-badge {
       display: inline-block;
       background: #212128;
@@ -397,7 +401,7 @@
     .lessons-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 15px;
       max-height: 480px;
       overflow-y: auto;
       padding: 6px;
@@ -411,59 +415,27 @@
       position: relative;
       transition: 0.2s;
     }
-    .lesson-card.unlocked:hover {
-      border-color: #00e676;
-      transform: translateY(-3px);
-    }
-    .lesson-card.locked {
-      opacity: 0.45;
-      cursor: not-allowed;
-      border-style: dashed;
-    }
-    .lesson-num {
-      font-size: 11.5px;
-      color: #00e676;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .lesson-title {
-      font-size: 14.5px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-    .lesson-sub {
-      font-size: 12px;
-      color: #888;
-    }
-    .lock-icon {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      font-size: 18px;
-    }
+    .lesson-card.unlocked:hover { border-color: #00e676; transform: translateY(-3px); }
+    .lesson-card.locked { opacity: 0.45; cursor: not-allowed; border-style: dashed; }
+    .lesson-num { font-size: 11.5px; color: #00e676; font-weight: bold; margin-bottom: 5px; }
+    .lesson-title { font-size: 14.5px; font-weight: bold; color: #fff; margin-bottom: 5px; }
+    .lesson-sub { font-size: 12px; color: #888; }
+    .lock-icon { position: absolute; top: 14px; right: 14px; font-size: 18px; }
 
-    /* --- સેટઅપ સ્ક્રીન (Quick Test) --- */
-    #setupScreen {
-      display: none;
-      flex: 1;
-    }
+    /* --- સેટઅપ સ્ક્રીન --- */
+    #setupScreen { display: none; flex: 1; }
     .setup-box {
       background: #212128;
       padding: 35px 40px;
       border-radius: 16px;
       border: 1px solid #30303b;
-      max-width: 540px;
-      margin: 40px auto;
+      max-width: 520px;
+      margin: 30px auto;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .input-group {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .input-group { display: flex; justify-content: space-between; align-items: center; }
     input[type="number"], select {
       background: #121216;
       color: #fff;
@@ -475,10 +447,7 @@
     }
 
     /* --- ટાઇપિંગ સ્ક્રીન --- */
-    #typingScreen {
-      display: none;
-      flex: 1;
-    }
+    #typingScreen { display: none; flex: 1; }
     .live-bar {
       display: flex;
       justify-content: space-between;
@@ -487,11 +456,7 @@
       font-size: 16px;
       color: #a8a8b3;
     }
-    .timer-display {
-      font-size: 24px;
-      color: #00e676;
-      font-weight: bold;
-    }
+    .timer-display { font-size: 24px; color: #00e676; font-weight: bold; }
     .progress-bar-container {
       width: 100%;
       height: 5px;
@@ -500,17 +465,12 @@
       margin-bottom: 16px;
       overflow: hidden;
     }
-    .progress-bar {
-      height: 100%;
-      width: 100%;
-      background: #00e676;
-      transition: width 0.3s linear;
-    }
+    .progress-bar { height: 100%; width: 100%; background: #00e676; transition: width 0.3s linear; }
     .text-display {
       background: #121216;
       padding: 24px;
       border-radius: 12px;
-      height: 190px;
+      height: 180px;
       overflow-y: hidden;
       font-size: 22px;
       line-height: 1.9;
@@ -520,19 +480,12 @@
       scroll-behavior: smooth;
     }
     .correct { color: #00e676; }
-    .incorrect {
-      color: #ff5252;
-      background: rgba(255, 82, 82, 0.2);
-      border-radius: 4px;
-    }
-    .current {
-      background: rgba(255, 255, 255, 0.25);
-      border-bottom: 3px solid #00e676;
-    }
+    .incorrect { color: #ff5252; background: rgba(255, 82, 82, 0.2); border-radius: 4px; }
+    .current { background: rgba(255, 255, 255, 0.25); border-bottom: 3px solid #00e676; }
     #textInput {
       width: 100%;
-      height: 130px;
-      margin-top: 16px;
+      height: 120px;
+      margin-top: 15px;
       padding: 14px;
       font-size: 17px;
       background: #121216;
@@ -556,15 +509,8 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .score-header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-    .score-header h2 {
-      color: #00e676;
-      font-size: 32px;
-      margin-bottom: 4px;
-    }
+    .score-header { text-align: center; margin-bottom: 22px; }
+    .score-header h2 { color: #00e676; font-size: 32px; margin-bottom: 4px; }
     .score-dashboard-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -578,48 +524,33 @@
       border-radius: 12px;
       text-align: center;
     }
-    .stat-label {
-      font-size: 13.5px;
-      color: #a8a8b3;
-      margin-bottom: 5px;
-    }
-    .stat-main-val {
-      font-size: 36px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .score-actions {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
+    .stat-label { font-size: 13.5px; color: #a8a8b3; margin-bottom: 5px; }
+    .stat-main-val { font-size: 36px; font-weight: bold; color: #fff; }
+    .score-actions { display: flex; justify-content: center; gap: 16px; }
     .btn-main {
       background: #00e676;
       color: #0d0d11;
       font-size: 16px;
       font-weight: bold;
-      padding: 14px 38px;
+      padding: 14px 36px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
-    .btn-main:hover {
-      background: #00c853;
-      transform: translateY(-2px);
-    }
+    .btn-main:hover { background: #00c853; }
     .btn-secondary {
       background: #242429;
       color: #fff;
       border: 1px solid #3a3a46;
-      padding: 14px 38px;
+      padding: 14px 36px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
     }
 
-    /* --- પરફેક્ટ SIGN IN MODAL --- */
+    /* AUTH MODAL */
     .modal {
       display: none;
       position: fixed;
@@ -638,49 +569,18 @@
       max-width: 780px;
       width: 100%;
       border: 1px solid #333342;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85);
       position: relative;
-      animation: modalFade 0.25s ease-out;
     }
-    @keyframes modalFade {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .modal-header-text {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .modal-header-text h2 {
-      color: #00e676;
-      font-size: 26px;
-      margin-bottom: 6px;
-    }
-    .modal-header-text p {
-      font-size: 13.5px;
-      color: #a8a8b3;
-    }
-    
+    .modal-header-text { text-align: center; margin-bottom: 28px; }
+    .modal-header-text h2 { color: #00e676; font-size: 26px; }
+    .modal-header-text p { font-size: 13.5px; color: #a8a8b3; }
     .auth-two-col {
       display: grid;
       grid-template-columns: 1.15fr 0.1fr 1fr;
       gap: 25px;
       align-items: center;
     }
-    .auth-left-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .form-group-modal {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .form-group-modal label {
-      font-size: 13px;
-      color: #d1d1d8;
-      font-weight: 500;
-    }
+    .auth-left-col { display: flex; flex-direction: column; gap: 12px; }
     .auth-input-clean {
       background: #111116;
       border: 1px solid #383848;
@@ -689,64 +589,17 @@
       color: #fff;
       font-size: 14.5px;
       outline: none;
-      transition: border-color 0.2s;
     }
-    .auth-input-clean:focus {
-      border-color: #00e676;
-    }
-    .forgot-link-clean {
-      color: #00e676;
-      font-size: 12px;
-      cursor: pointer;
-      text-align: right;
-      text-decoration: underline;
-      margin-top: -3px;
-    }
-    .btn-auth-action {
-      background: #00e676;
-      color: #0d0d11;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 4px;
-      transition: 0.2s;
-    }
-    .btn-auth-action:hover {
-      background: #00c853;
-    }
-    .auth-switch-text {
-      font-size: 12.5px;
-      color: #a8a8b3;
-      cursor: pointer;
-      text-align: center;
-      margin-top: 2px;
-    }
-    .auth-switch-text span {
-      color: #00e676;
-      font-weight: bold;
-      text-decoration: underline;
-    }
-
     .auth-mid-divider {
       width: 1px;
       height: 100%;
-      min-height: 220px;
+      min-height: 200px;
       background: #2d2d38;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .auth-mid-divider span {
-      background: #1a1a23;
-      padding: 8px 0;
-      color: #71717a;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
+    .auth-mid-divider span { background: #1a1a23; padding: 6px 0; color: #71717a; font-size: 11px; }
     .auth-right-col {
       display: flex;
       flex-direction: column;
@@ -754,12 +607,6 @@
       justify-content: center;
       gap: 16px;
       text-align: center;
-      padding: 10px;
-    }
-    .auth-right-col p {
-      font-size: 13.5px;
-      color: #a8a8b3;
-      line-height: 1.5;
     }
     .btn-google-clean {
       display: flex;
@@ -775,11 +622,6 @@
       font-size: 14.5px;
       cursor: pointer;
       width: 100%;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-      transition: background 0.2s;
-    }
-    .btn-google-clean:hover {
-      background: #ececf0;
     }
     .btn-modal-close-perfect {
       position: absolute;
@@ -790,10 +632,81 @@
       color: #777;
       font-size: 26px;
       cursor: pointer;
-      transition: color 0.2s;
     }
-    .btn-modal-close-perfect:hover {
-      color: #fff;
+
+    /* =======================================================
+       --- સ્માર્ટ મોબાઈલ મોડ સ્ટાઈલ્સ (MOBILE SPECIFIC UI) ---
+       ======================================================= */
+    body.mobile-mode {
+      padding: 12px 6px;
+    }
+    body.mobile-mode .container {
+      padding: 20px 15px;
+      border-radius: 16px;
+      width: 100%;
+      min-height: 94vh;
+    }
+    body.mobile-mode .top-bar {
+      grid-template-columns: 1fr;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    body.mobile-mode .device-switcher {
+      order: -1;
+      margin: 0 auto 6px auto;
+      width: 100%;
+      justify-content: center;
+    }
+    body.mobile-mode .device-btn {
+      padding: 10px 22px;
+      font-size: 14.5px;
+    }
+    body.mobile-mode h1 { font-size: 27px; }
+    body.mobile-mode .hero-subtitle { font-size: 13.5px; }
+    body.mobile-mode .home-mode-cards {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    body.mobile-mode .mode-card { padding: 20px 16px; }
+    body.mobile-mode .lessons-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-height: 420px;
+    }
+    body.mobile-mode .text-display {
+      height: 135px;
+      font-size: 17.5px;
+      line-height: 1.6;
+      padding: 14px;
+    }
+    body.mobile-mode #textInput {
+      height: 75px;
+      font-size: 15px;
+      padding: 10px;
+    }
+    body.mobile-mode .score-dashboard-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    body.mobile-mode .stat-main-val { font-size: 28px; }
+    body.mobile-mode .auth-two-col { grid-template-columns: 1fr; }
+    body.mobile-mode .auth-mid-divider {
+      width: 100%;
+      height: 1px;
+      min-height: 1px;
+      margin: 8px 0;
+    }
+
+    @media (max-width: 768px) {
+      .top-bar { grid-template-columns: 1fr; display: flex; flex-wrap: wrap; justify-content: space-between; }
+      .device-switcher { order: -1; margin: 0 auto; width: 100%; justify-content: center; }
+      .home-mode-cards { grid-template-columns: 1fr; }
+      .lessons-grid { grid-template-columns: repeat(2, 1fr); }
+      .auth-two-col { grid-template-columns: 1fr; }
+      .auth-mid-divider { width: 100%; height: 1px; min-height: 1px; }
+      .score-dashboard-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -801,16 +714,22 @@
 
   <div class="container">
     
-    <!-- Top Bar -->
+    <!-- TOP BAR સાથે મોટા સ્વિચ બટન -->
     <div class="top-bar">
-      <div class="back-nav" id="backBtn">&#8592; પાછા હોમ પેજ પર જાઓ</div>
-      
-      <button class="sound-btn" id="soundToggleBtn">🔊 Sound: ON</button>
+      <div class="top-left">
+        <div class="back-nav" id="backBtn">&#8592; પાછા જાઓ</div>
+        <button class="sound-btn" id="soundToggleBtn">🔊 Sound: ON</button>
+      </div>
 
-      <!-- યુઝર પ્રોફાઇલ -->
+      <!-- વચ્ચેનું મોટું લેપટોપ vs મોબાઈલ સ્વિચર -->
+      <div class="device-switcher">
+        <button class="device-btn active" id="laptopModeBtn">💻 Laptop Mode</button>
+        <button class="device-btn" id="mobileModeBtn">📱 Mobile Mode</button>
+      </div>
+
+      <!-- પ્રોફાઇલ અને સાઇન-ઇન સેક્શન (ફક્ત હોમ પેજ પર જ દેખાશે) -->
       <div class="user-section" id="userSection">
         <button class="btn-signin-top" id="openSignInBtn">Sign In</button>
-
         <div class="user-profile" id="userProfile">
           <img src="" alt="avatar" class="user-avatar" id="userAvatar">
           <div class="user-details">
@@ -826,10 +745,10 @@
     <div id="homeScreen">
       <div class="hero-section">
         <h1>Typing Master Pro</h1>
-        <p class="hero-subtitle">પ્રોફેશનલ ટચ ટાઈપિંગ શીખો અને તમારી ઝડપ બમણી કરો</p>
+        <p class="hero-subtitle">લેપટોપ કીબોર્ડ અને મોબાઈલ ટચસ્ક્રીન બંને માટેનું સંપૂર્ણ ટાઈપિંગ પ્લેટફોર્મ</p>
       </div>
 
-      <!-- ૨ મુખ્ય મોડ બોક્સ -->
+      <!-- ૨ મુખ્ય બોક્સ -->
       <div class="home-mode-cards">
         <div class="mode-card" id="openCourseBtn">
           <span class="mode-badge">શિખાઉ માટે ખાસ ⭐</span>
@@ -842,11 +761,11 @@
           <span class="mode-badge">પ્રેક્ટિસ મોડ ⚡</span>
           <div class="mode-icon">🚀</div>
           <h3>Speed Challenge (ટેસ્ટ)</h3>
-          <p>તમારી હાલની ટાઇપિંગ સ્પીડ (WPM) અને ચોકસાઈ (Accuracy) ચકાસવા માટે ટાઈમર સાથે ટેસ્ટ આપો.</p>
+          <p>તમારી હાલની ટાઇપિંગ સ્પીડ (WPM) અને ચોકસાઈ (Accuracy) ચકાસવા માટે ટાઈમર સાથે લાઈવ ટેસ્ટ આપો.</p>
         </div>
       </div>
 
-      <!-- ૨ બોક્સની નીચે વિગતવાર લાંબુ INTRO & COMPLETE GUIDE -->
+      <!-- ૨ બોક્સની નીચે ખૂબ વિગતવાર અને મોટું લખાણ (GUIDE) -->
       <div class="spacious-guide">
         
         <!-- ૧. ઇન્ટ્રોડક્શન બેનર -->
@@ -856,42 +775,38 @@
             જો તમે અત્યાર સુધી ફક્ત બે કે ત્રણ આંગળીઓ વડે કીબોર્ડ સામે વારંવાર જોઈને ("Hunt and Peck" પદ્ધતિથી) ટાઈપ કરતા હોવ, તો આ પ્લેટફોર્મ તમારી આખી ટાઈપિંગ શૈલીને વૈજ્ઞાનિક રીતે બદલવા માટે બનાવવામાં આવ્યું છે. જ્યારે આપણે કીબોર્ડ સામે જોઈને ટાઈપ કરીએ છીએ ત્યારે મગજને બેવડું કામ કરવું પડે છે: પહેલાં અક્ષર શોધવો અને પછી સ્ક્રીન પર ભૂલ તપાસવી.
           </p>
           <p>
-            <b>Touch Typing</b> એ એવી કુશળતા છે જેમાં તમારી તમામ ૧૦ આંગળીઓ કીબોર્ડના ચોક્કસ બટનો માટે ફાળવવામાં આવે છે. થોડા દિવસોના સાતત્યપૂર્ણ અભ્યાસથી આંગળીઓમાં <i>Muscle Memory</i> (સ્નાયુઓની યાદશક્તિ) વિકસે છે. પરિણામે તમારે ક્યારેય કીબોર્ડ સામે જોવાની જરૂર રહેતી નથી, તમારી આંખો સીધી સ્ક્રીન પર રહે છે અને ટાઈપિંગની ઝડપ કોઈપણ શ્રમ વિના <b>૪૦ થી ૮૦+ WPM</b> સુધી પહોંચી શકે છે.
+            <b>Touch Typing</b> એ એવી કુશળતા છે જેમાં તમારી તમામ ૧૦ આંગળીઓ (લેપટોપમાં) અથવા બંને અંગૂઠાઓ (મોબાઈલમાં) ચોક્કસ બટનો માટે ટેવાઈ જાય છે. થોડા દિવસોના સાતત્યપૂર્ણ અભ્યાસથી હાથમાં <i>Muscle Memory</i> (સ્નાયુઓની યાદશક્તિ) વિકસે છે. પરિણામે તમારે ક્યારેય કીબોર્ડ સામે જોવાની જરૂર રહેતી નથી અને ટાઈપિંગ સ્પીડ <b>૪૦ થી ૮૦+ WPM</b> સુધી પહોંચી શકે છે.
           </p>
         </div>
 
-        <!-- ૨. કીબોર્ડ રચના અને આંગળીઓનું વિભાજન -->
+        <!-- ૨. મોબાઈલ ટાઈપિંગ માસ્ટરી -->
         <div class="guide-section-block">
-          <h3>⌨️ કીબોર્ડની રચના અને Home Keys (હોમ રો) નું મહત્વ</h3>
+          <h3>📱 મોબાઈલ ટાઈપિંગ માસ્ટરી (Mobile Thumb Typing Technique)</h3>
           <p>
-            સામાન્ય QWERTY કીબોર્ડની મધ્ય લાઈનને <b>Home Row</b> કહેવામાં આવે છે. આ તે પાયાની લાઈન છે જ્યાં કોઈપણ અન્ય અક્ષર, નંબર કે સિમ્બોલ ટાઈપ કર્યા બાદ તમારી આંગળીઓ હંમેશાં વિશ્રામ (Rest) માટે પરત ફરે છે.
+            સ્માર્ટફોન પર 50 થી 60+ WPM ની અતિ-ઝડપી સ્પીડ મેળવવા માટે વિશ્વભરના પ્રોફેશનલ ટાઇપિસ્ટ્સ <b>Two-Thumb Method</b> નો ઉપયોગ કરે છે:
           </p>
           <p>
-            • <b>ડાબા હાથની આંગળીઓની ગોઠવણ:</b> ટચલી આંગળી <span class="keyboard-keys-pill">A</span> પર, અનામિકા (રીંગ) <span class="keyboard-keys-pill">S</span> પર, મધ્યમા <span class="keyboard-keys-pill">D</span> પર અને તર્જની (ઇન્ડેક્સ) <span class="keyboard-keys-pill">F</span> પર રહેશે.<br>
-            • <b>જમણા હાથની આંગળીઓની ગોઠવણ:</b> તર્જની (ઇન્ડેક્સ) <span class="keyboard-keys-pill">J</span> પર, મધ્યમા <span class="keyboard-keys-pill">K</span> પર, અનામિકા (રીંગ) <span class="keyboard-keys-pill">L</span> પર અને ટચલી આંગળી <span class="keyboard-keys-pill">;</span> (સેમિકોલન) પર રહેશે.<br>
-            • <b>બંને અંગૂઠા (Thumbs):</b> બંને અંગૂઠા હંમેશાં મોટા <span class="keyboard-keys-pill">Spacebar</span> કી પર હળવાશથી રહેશે.
-          </p>
-          <p>
-            🔍 <b>F અને J પરના ખાસ બમ્પ્સ (Raised Tactile Bumps):</b><br>
-            વિશ્વના તમામ કમ્પ્યુટર કીબોર્ડ પર <span class="keyboard-keys-pill">F</span> અને <span class="keyboard-keys-pill">J</span> બટન પર નાના ઉપસેલા ટપકાં (Bumps) આપેલા હોય છે. તમારી બંને ઇન્ડેક્સ ફિંગર આ બમ્પ્સને સ્પર્શીને કીબોર્ડ સામે જોયા વગર જ આંખના પલકારામાં જાણી શકે છે કે તમારા બંને હાથ સાચી પોઝિશન પર છે કે નહીં.
+            • <b>ફોન પકડવાની સાચી પદ્ધતિ (Phone Grip):</b> બંને હાથની આંગળીઓ વડે સ્માર્ટફોનની પાછળ ટેકો આપો અને બંને હાથના અંગૂઠા સ્ક્રીન પર મુક્ત રાખો. ફોનને એક હાથમાં પકડીને એક આંગળીથી ટાઈપ કરવાની આદત તરત બંધ કરો.<br>
+            • <b>સ્ક્રીનનું વિભાજન (Virtual Keyboard Zones):</b> વર્ચ્યુઅલ કીબોર્ડને મનમાં બે ભાગમાં વહેંચો. ડાબો અંગૂઠો ફક્ત ડાબી બાજુના અક્ષરો (<span class="keyboard-keys-pill">Q</span> <span class="keyboard-keys-pill">W</span> <span class="keyboard-keys-pill">E</span> <span class="keyboard-keys-pill">A</span> <span class="keyboard-keys-pill">S</span> <span class="keyboard-keys-pill">D</span> <span class="keyboard-keys-pill">Z</span> <span class="keyboard-keys-pill">X</span>) દબાવશે અને જમણો અંગૂઠો જમણી બાજુના અક્ષરો (<span class="keyboard-keys-pill">U</span> <span class="keyboard-keys-pill">I</span> <span class="keyboard-keys-pill">O</span> <span class="keyboard-keys-pill">P</span> <span class="keyboard-keys-pill">J</span> <span class="keyboard-keys-pill">K</span> <span class="keyboard-keys-pill">L</span> <span class="keyboard-keys-pill">M</span>) દબાવશે.<br>
+            • <b>સ્પેસબારનો સંયમ:</b> જે અંગૂઠો અક્ષર દબાવ્યા પછી ખાલી હોય તે અંગૂઠાથી હળવેથી સ્પેસબાર દબાવો.<br>
+            • <b>ઑટો-કરેક્ટ વગર સાચું ટાઈપિંગ:</b> આપણી વેબસાઇટમાં ટેસ્ટ દરમિયાન ઑટો-કરેક્ટ બ્લોક રાખેલું છે, જેથી તમે જાતે ચોક્કસ અક્ષર દબાવતાં શીખો અને તમારી પોતાની સ્પીડ વધે.
           </p>
         </div>
 
-        <!-- ૩. શરીરની બેઠક અને મુદ્રા (Ergonomics) -->
+        <!-- ૩. લેપટોપ હોમ રો અને કીબોર્ડ રચના -->
         <div class="guide-section-block">
-          <h3>🧘‍♂️ યોગ્ય મુદ્રા (Posture) અને સ્વાસ્થ્યના નિયમો</h3>
+          <h3>⌨️ લેપટોપ કીબોર્ડ રચના અને Home Keys નું મહત્વ</h3>
           <p>
-            લાંબા સમય સુધી ટાઈપ કરતી વખતે થાક ન લાગે અને કાંડા કે પીઠનો દુખાવો ન થાય તે માટે આ નિયમોનું પાલન કરો:
+            સામાન્ય QWERTY કીબોર્ડની મધ્ય લાઈનને <b>Home Row</b> કહેવામાં આવે છે. આ તે પાયાની લાઈન છે જ્યાં કોઈપણ અન્ય અક્ષર, નંબર કે સિમ્બોલ ટાઈપ કર્યા બાદ તમારી આંગળીઓ હંમેશાં આરામ માટે પરત ફરે છે:
           </p>
           <p>
-            ૧. <b>પીઠ સીધી રાખો:</b> ખુરશી પર કરોડરજ્જુ ટટ્ટાર રહે તે રીતે બેસો અને બંને પગ જમીન પર સપાટ ટેકવો.<br>
-            ૨. <b>કોણી ૯૦ અંશના ખૂણે:</b> તમારા હાથ કોણી પાસેથી આશરે 90° ના ખૂણે વળેલા હોવા જોઈએ.<br>
-            ૩. <b>કાંડા હવામાં હળવા રાખો:</b> ટાઈપ કરતી વખતે કાંડાને ટેબલ કે લેપટોપની બોડી પર દબાવીને ટેકવી ન રાખો, તેને હળવાશથી ઊંચા રાખી આંગળીઓને પિયાનો વગાડતા હોવ તેમ ગોળાઈમાં રાખો.<br>
-            ૪. <b>સ્ક્રીનથી અંતર:</b> લેપટોપ સ્ક્રીન આંખોથી આશરે ૪૫ થી ૬૦ સેન્ટિમીટર (એક હાથ જેટલા) અંતરે હોવી જોઈએ.
+            • <b>ડાબા હાથની આંગળીઓ:</b> ટચલી આંગળી <span class="keyboard-keys-pill">A</span> પર, અનામિકા <span class="keyboard-keys-pill">S</span> પર, મધ્યમા <span class="keyboard-keys-pill">D</span> પર અને તર્જની <span class="keyboard-keys-pill">F</span> પર.<br>
+            • <b>જમણા હાથની આંગળીઓ:</b> તર્જની <span class="keyboard-keys-pill">J</span> પર, મધ્યમા <span class="keyboard-keys-pill">K</span> પર, અનામિકા <span class="keyboard-keys-pill">L</span> પર અને ટચલી આંગળી <span class="keyboard-keys-pill">;</span> પર.<br>
+            • <b>F અને J ના ખાસ બમ્પ્સ (Tactile Bumps):</b> વિશ્વના તમામ કીબોર્ડ પર <span class="keyboard-keys-pill">F</span> અને <span class="keyboard-keys-pill">J</span> કી ઉપર નાના ઉપસેલા ટપકાં હોય છે, જે અંધારામાં કે કીબોર્ડ સામે જોયા વગર તમારી આંગળીઓને સાચી જગ્યાએ સેટ કરે છે.
           </p>
         </div>
 
-        <!-- ૪. સ્ટેપ બાય સ્ટેપ કોર્સ રોડમેપ -->
+        <!-- ૪. ૨૩-લેવલ અભ્યાસક્રમ રોડમેપ -->
         <div class="guide-section-block">
           <h3>🗺️ અમારા ૨૩-લેવલ અભ્યાસક્રમ (Curriculum) નો રોડમેપ</h3>
           <p>
@@ -952,7 +867,7 @@
         <div class="golden-rules-box">
           <h3>⚡ ટાઇપિંગ માસ્ટર બનવાના કડક સુવર્ણ નિયમો (Strict Rules)</h3>
           <ul>
-            <li><b>કીબોર્ડ સામે ક્યારેય ન જોવું:</b> શરૂઆતમાં તમારી ઝડપ ઘટી જાય કે ભૂલો થાય તો પણ કીબોર્ડ સામે જોવાની લાલચ રોકો. સ્ક્રીન પર જોઈને આંગળીઓને સાચા અક્ષરની દિશા જાતે શોધવા દો.</li>
+            <li><b>કીબોર્ડ સામે ક્યારેય ન જોવું:</b> શરૂઆતમાં તમારી ઝડપ ઘટી જાય કે ભૂલો થાય તો પણ કીબોર્ડ સામે જોવાની લાલચ રોકો. સ્ક્રીન પર જોઈને જ ટાઈપ કરો.</li>
             <li><b>Backspace સંપૂર્ણપણે અક્ષમ (Disabled) છે:</b> સાચી ટાઈપિંગમાં અક્ષર ભૂંસીને આગળ વધવું એ અયોગ્ય ટેવ છે. Backspace બ્લોક હોવાથી તમારું મગજ દરેક અક્ષર દબાવતાં પહેલાં પૂર્ણ સભાનતા કેળવશે.</li>
             <li><b>૯૦% ચોકસાઈ (Accuracy Rule):</b> જ્યાં સુધી તમે કોઈપણ લેસનમાં 90% કે તેથી વધુ સાચા અક્ષરો ટાઈપ ન કરો, ત્યાં સુધી આગળનું લેવલ અનલૉક થશે નહીં. સ્પીડ કરતાં એક્યુરસી હંમેશાં પ્રાથમિક છે.</li>
             <li><b>ઓડિયો ફીડબેક સાંભળો:</b> સાચા અક્ષર પર સોફ્ટ કી-ક્લિક અને ખોટા અક્ષર પર બીપ સાઉન્ડ વાગશે. આ અવાજની લય પકડીને એકધારી ગતિએ ટાઈપિંગ ચાલુ રાખો.</li>
@@ -962,7 +877,7 @@
       </div>
     </div>
 
-    <!-- 2. કોર્સ લેસન્સ સિલેક્શન સ્ક્રીન -->
+    <!-- 2. કોર્સ લેસન્સ સ્ક્રીન -->
     <div id="courseScreen">
       <div class="course-header">
         <h2>🎓 Typing Curriculum (લેસન્સ)</h2>
@@ -987,7 +902,7 @@
             <option value="very-hard">Very Hard</option>
           </select>
         </div>
-        <button class="btn-main" id="startTestBtn" style="width:100%; margin-top:10px;">શરૂ કરો</button>
+        <button class="btn-main" id="startTestBtn" style="width:100%; margin-top:8px;">ટેસ્ટ શરૂ કરો</button>
       </div>
     </div>
 
@@ -1003,7 +918,15 @@
       </div>
 
       <div class="text-display" id="textDisplay"></div>
-      <textarea id="textInput" placeholder="અહીંથી ટાઈપિંગ શરૂ કરો... (Backspace અક્ષમ કરેલ છે)" disabled></textarea>
+      
+      <textarea 
+        id="textInput" 
+        placeholder="અહીંથી ટાઈપિંગ શરૂ કરો... (Backspace અક્ષમ છે)" 
+        autocomplete="off" 
+        autocorrect="off" 
+        autocapitalize="off" 
+        spellcheck="false" 
+        disabled></textarea>
     </div>
 
     <!-- 5. સ્કોર સ્ક્રીન -->
@@ -1036,55 +959,37 @@
 
   </div>
 
-  <!-- પરફેક્ટ SIGN IN MODAL -->
+  <!-- AUTH MODAL -->
   <div class="modal" id="authModal">
     <div class="modal-box-perfect">
       <button class="btn-modal-close-perfect" id="closeAuthModal">&times;</button>
       
       <div class="modal-header-text">
         <h2 id="authModalTitle">Sign In</h2>
-        <p id="authModalSubtitle">તમારો કોર્સ પ્રોગ્રેસ અને સ્કોર સેવ રાખવા માટે કનેક્ટ થાઓ</p>
+        <p id="authModalSubtitle">તમારો કોર્સ પ્રોગ્રેસ અને સ્કોર સેવ રાખવા માટે લૉગિન કરો</p>
       </div>
       
       <div class="auth-two-col">
-        <!-- ડાબી બાજુ Email / Password -->
         <div class="auth-left-col">
-          <div class="form-group-modal">
-            <label for="authEmail">ઈમેલ એડ્રેસ (Email):</label>
-            <input type="email" id="authEmail" class="auth-input-clean" placeholder="username@gmail.com">
-          </div>
-
-          <div class="form-group-modal">
-            <label for="authPassword">પાસવર્ડ (Password):</label>
-            <input type="password" id="authPassword" class="auth-input-clean" placeholder="ઓછામાં ઓછા 6 અક્ષર">
-          </div>
-
-          <span class="forgot-link-clean" id="forgotPasswordBtn">પાસવર્ડ ભૂલી ગયા?</span>
-          
-          <button class="btn-auth-action" id="authSubmitBtn">Login</button>
-          
-          <div class="auth-switch-text" id="authToggleText">
-            નવું એકાઉન્ટ બનાવવું છે? <span>Sign Up કરો</span>
-          </div>
+          <input type="email" id="authEmail" class="auth-input-clean" placeholder="username@gmail.com">
+          <input type="password" id="authPassword" class="auth-input-clean" placeholder="પાસવર્ડ">
+          <span style="color:#00e676; font-size:12px; cursor:pointer; text-align:right;" id="forgotPasswordBtn">પાસવર્ડ ભૂલી ગયા?</span>
+          <button class="btn-main" id="authSubmitBtn" style="padding:11px;">Login</button>
+          <div style="font-size:12px; color:#aaa; cursor:pointer; text-align:center;" id="authToggleText">નવું એકાઉન્ટ? <span>Sign Up</span></div>
         </div>
 
-        <!-- વચલી લાઈન -->
-        <div class="auth-mid-divider">
-          <span>OR</span>
-        </div>
+        <div class="auth-mid-divider"><span>OR</span></div>
 
-        <!-- જમણી બાજુ Google Login -->
         <div class="auth-right-col">
-          <p>તમારા ગૂગલ એકાઉન્ટ વડે માત્ર ૧-ક્લિકમાં સિક્યોર લૉગિન કરો:</p>
-          
+          <p style="font-size:13px; color:#a8a8b3;">૧-ક્લિકમાં ગૂગલ વડે લૉગિન કરો:</p>
           <button class="btn-google-clean" id="googleSignInBtn">
-            <svg viewBox="0 0 48 48" style="width: 20px; height: 20px;">
+            <svg viewBox="0 0 48 48" style="width: 18px; height: 18px;">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
               <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
               <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
               <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
             </svg>
-            Google વડે Sign In કરો
+            Google વડે Sign In
           </button>
         </div>
       </div>
@@ -1093,9 +998,9 @@
 
   <script>
     // -------------------------------------------------------------
-    // Firebase Config (તમારો સાચો Firebase પ્રોજેક્ટ કન્ફિગ)
+    // Firebase Config
     // -------------------------------------------------------------
-     const firebaseConfig = {
+    const firebaseConfig = {
     apiKey: "AIzaSyBi2WCy7rGfQ5Ie7ckR6SgeVPIsdPFWck8",
     authDomain: "diploma-study-portal.firebaseapp.com",
     databaseURL: "https://diploma-study-portal-default-rtdb.firebaseio.com",
@@ -1111,39 +1016,34 @@
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-    // --- ૨૩ લેવલનો સંપૂર્ણ ટાઈપિંગ કોર્સ ડેટા ---
+    // --- ૨૩ લેવલનો સંપૂર્ણ કોર્સ ---
     const courseData = [
       { id: 1, title: "Left Hand Home Row", keys: "a s d f", text: "asdf asdf fads fads dafs sad fad asdf" },
       { id: 2, title: "Right Hand Home Row", keys: "j k l ;", text: "jkl; jkl; ;lkj ;lkj klad jalk kals jkl;" },
       { id: 3, title: "Both Hands Combined", keys: "a s d f j k l ;", text: "asdf jkl; a;sldkfj fads ;lkj flash salad" },
       { id: 4, title: "G & H Extension", keys: "g h", text: "fg jh gf hj flag glad half flash dash gas jag" },
       { id: 5, title: "Home Row Full Words", keys: "All Home Keys", text: "fall glad asks alas salad flask half sash dash" },
-
-      { id: 6, title: "E & I (Common Vowels)", keys: "e i", text: "de ki ed ik feed side like file ride kite idle" },
+      { id: 6, title: "E & I (Vowels)", keys: "e i", text: "de ki ed ik feed side like file ride kite idle" },
       { id: 7, title: "R & U", keys: "r u", text: "fr ju rf uj fur rude fire rush surf dark user" },
       { id: 8, title: "Q W & O P", keys: "q w o p", text: "qa ws ol p; plow quit wipe wire pool loop flow" },
       { id: 9, title: "T & Y", keys: "t y", text: "ft jy tf yj they year tyre wait stay pity gray" },
-      { id: 10, title: "Home + Top Row Words", keys: "Top & Home", text: "tree water write power report quiet reply treat" },
-
+      { id: 10, title: "Top Row Words", keys: "Top & Home", text: "tree water write power report quiet reply treat" },
       { id: 11, title: "V & M", keys: "v m", text: "fv jm move farm view make vast main army fame" },
       { id: 12, title: "C & N", keys: "c n", text: "dc kn coin clean nice icon can face scan neck" },
       { id: 13, title: "Z X & Punctuation", keys: "z x , .", text: "za xs size next zeal flex mix, zone. axis taxi." },
       { id: 14, title: "Full Keyboard Mix", keys: "All Letters", text: "quick brown fox jumps over the lazy dog very fast." },
-
-      { id: 15, title: "Right Hand Capitals", keys: "Left Shift", text: "Joy King Lion Oman Paris Qatar India Japan Korea" },
-      { id: 16, title: "Left Hand Capitals", keys: "Right Shift", text: "Apple Delhi France Gujarat Spain Texas Wales USA" },
-      { id: 17, title: "Mixed Case Sentences", keys: "Shift Mix", text: "Monday and Friday are busy. Alex lives in London." },
-
-      { id: 18, title: "Numbers Row (1-5)", keys: "1 2 3 4 5", text: "room 102, floor 3, unit 45, page 15, code 234" },
-      { id: 19, title: "Numbers Row (6-0)", keys: "6 7 8 9 0", text: "call 890, batch 76, route 98, total 670, year 2026" },
-      { id: 20, title: "Standard Symbols", keys: "! @ # $ % &", text: "price is $50, 100% true, tag #cool, email @site!" },
-
-      { id: 21, title: "Top 100 Common Words", keys: "Speed Test", text: "about there would these could water first place after find think great" },
+      { id: 15, title: "Capitals (Right Hand)", keys: "Left Shift", text: "Joy King Lion Oman Paris Qatar India Japan Korea" },
+      { id: 16, title: "Capitals (Left Hand)", keys: "Right Shift", text: "Apple Delhi France Gujarat Spain Texas Wales USA" },
+      { id: 17, title: "Mixed Sentences", keys: "Shift Mix", text: "Monday and Friday are busy. Alex lives in London." },
+      { id: 18, title: "Numbers (1-5)", keys: "1 2 3 4 5", text: "room 102, floor 3, unit 45, page 15, code 234" },
+      { id: 19, title: "Numbers (6-0)", keys: "6 7 8 9 0", text: "call 890, batch 76, route 98, total 670, year 2026" },
+      { id: 20, title: "Symbols", keys: "! @ # $ % &", text: "price is $50, 100% true, tag #cool, email @site!" },
+      { id: 21, title: "Common 100 Words", keys: "Speed Test", text: "about there would these could water first place after find think great" },
       { id: 22, title: "Complex Sentences", keys: "Fluency", text: "Consistent practice every day develops incredible typing muscle memory." },
-      { id: 23, title: "Final Master Graduation", keys: "Pro Certification", text: "You have completely mastered touch typing. Speed and accuracy will now stay with you forever." }
+      { id: 23, title: "Master Graduation", keys: "Certification", text: "You have completely mastered touch typing. Speed and accuracy will stay with you forever." }
     ];
 
-    // --- Web Audio API સાઉન્ડ ---
+    // --- Web Audio API ---
     let soundEnabled = true;
     let audioCtx = null;
     function initAudio() {
@@ -1156,18 +1056,18 @@
       const gain = audioCtx.createGain();
       if (!isError) {
         osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.035);
+        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.03);
         gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.035);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
         osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.035);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.03);
       } else {
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(140, audioCtx.currentTime);
         gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
         osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.08);
       }
     }
     document.getElementById('soundToggleBtn').addEventListener('click', () => {
@@ -1176,13 +1076,37 @@
       document.getElementById('soundToggleBtn').innerText = soundEnabled ? "🔊 Sound: ON" : "🔇 Sound: OFF";
     });
 
-    // --- સ્ક્રીન સ્વિચિંગ ---
+    // --- લેપટોપ vs મોબાઈલ સ્વિચિંગ લૉજિક ---
+    const laptopModeBtn = document.getElementById('laptopModeBtn');
+    const mobileModeBtn = document.getElementById('mobileModeBtn');
+
+    function setDeviceMode(isMobile) {
+      if (isMobile) {
+        document.body.classList.add('mobile-mode');
+        mobileModeBtn.classList.add('active');
+        laptopModeBtn.classList.remove('active');
+      } else {
+        document.body.classList.remove('mobile-mode');
+        laptopModeBtn.classList.add('active');
+        mobileModeBtn.classList.remove('active');
+      }
+    }
+
+    laptopModeBtn.addEventListener('click', () => setDeviceMode(false));
+    mobileModeBtn.addEventListener('click', () => setDeviceMode(true));
+
+    if (window.innerWidth <= 768) {
+      setDeviceMode(true);
+    }
+
+    // --- નેવિગેશન સ્ક્રીન્સ & પ્રોફાઇલ વિઝિબિલિટી (સિર્ફ હોમ પર દેખાશે) ---
     const homeScreen = document.getElementById('homeScreen');
     const courseScreen = document.getElementById('courseScreen');
     const setupScreen = document.getElementById('setupScreen');
     const typingScreen = document.getElementById('typingScreen');
     const scoreScreen = document.getElementById('scoreScreen');
     const backBtn = document.getElementById('backBtn');
+    const userSection = document.getElementById('userSection');
 
     let currentMode = 'course';
     let currentLesson = null;
@@ -1192,6 +1116,10 @@
       [homeScreen, courseScreen, setupScreen, typingScreen, scoreScreen].forEach(s => s.style.display = 'none');
       screen.style.display = (screen === scoreScreen || screen === homeScreen) ? 'flex' : 'block';
       backBtn.style.display = (screen === homeScreen) ? 'none' : 'flex';
+      
+      // પ્રોફાઇલ અને સાઇન-ઇન ફક્ત હોમ સ્ક્રીન પર જ દેખાશે
+      userSection.style.display = (screen === homeScreen) ? 'flex' : 'none';
+
       window.scrollTo(0, 0);
     }
 
@@ -1211,7 +1139,6 @@
       showScreen(homeScreen);
     });
 
-    // --- કોર્સ લેસન્સ રેન્ડરિંગ ---
     function renderCourseLessons() {
       const container = document.getElementById('lessonsContainer');
       container.innerHTML = "";
@@ -1227,9 +1154,7 @@
           <div class="lesson-sub">Keys: ${lesson.keys}</div>
           <div class="lock-icon">${isUnlocked ? '🔓' : '🔒'}</div>
         `;
-        if (isUnlocked) {
-          card.addEventListener('click', () => startLesson(lesson));
-        }
+        if (isUnlocked) card.addEventListener('click', () => startLesson(lesson));
         container.appendChild(card);
       });
     }
@@ -1245,6 +1170,7 @@
     let totalTime = 60;
     let timeLeft = 60;
     let totalErrors = 0;
+    let previousInputLength = 0;
 
     function startLesson(lesson) {
       currentMode = 'course';
@@ -1261,11 +1187,11 @@
       totalTime = timeVal;
       timeLeft = timeVal;
       timeLeftDisplay.innerText = `${timeLeft}s`;
-      activeModeLabel.innerText = "⚡ Quick Speed Challenge";
+      activeModeLabel.innerText = "⚡ Speed Challenge";
       
       const sampleTexts = [
         "Developing exceptional keyboard fluency requires patience and consistent daily practice without looking down.",
-        "Technological innovation continues to transform how modern societies communicate across the global digital web."
+        "Mobile typing speed with both thumbs can easily reach over fifty words per minute with disciplined practice."
       ];
       setupTypingText(sampleTexts[Math.floor(Math.random() * sampleTexts.length)]);
       
@@ -1293,16 +1219,31 @@
       showScreen(typingScreen);
       textInput.disabled = false;
       textInput.value = "";
-      textInput.focus();
+      previousInputLength = 0;
       totalErrors = 0;
       textDisplay.scrollTop = 0;
+      setTimeout(() => textInput.focus(), 150);
     }
 
+    // લેપટોપ કીબોર્ડ Backspace બ્લોક
     textInput.addEventListener('keydown', (e) => {
       if (e.key === 'Backspace' || e.key === 'Delete') e.preventDefault();
     });
 
+    // મોબાઈલ કીબોર્ડ Backspace બ્લોક
+    textInput.addEventListener('beforeinput', (e) => {
+      if (e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward') {
+        e.preventDefault();
+      }
+    });
+
     textInput.addEventListener('input', () => {
+      if (textInput.value.length < previousInputLength) {
+        textInput.value = textDisplay.innerText.substring(0, previousInputLength);
+        return;
+      }
+
+      previousInputLength = textInput.value.length;
       const inputChars = textInput.value.split('');
       const charSpans = textDisplay.querySelectorAll('span');
       let errCount = 0;
@@ -1332,6 +1273,12 @@
       if (inputChars.length < charSpans.length) {
         const activeSpan = charSpans[inputChars.length];
         activeSpan.classList.add('current');
+        
+        const spanRect = activeSpan.getBoundingClientRect();
+        const displayRect = textDisplay.getBoundingClientRect();
+        if (spanRect.bottom > displayRect.bottom - 20) {
+          textDisplay.scrollTop += 40;
+        }
       } else {
         clearInterval(timerInterval);
         finishTypingSession();
@@ -1360,7 +1307,7 @@
             unlockedLevel++;
             localStorage.setItem('unlocked_course_level', unlockedLevel);
           }
-          nextActionBtn.innerText = "આગળનો લેસન શરૂ કરો";
+          nextActionBtn.innerText = "આગળનો લેસન";
           nextActionBtn.onclick = () => {
             if (currentLesson.id < courseData.length) {
               startLesson(courseData[currentLesson.id]);
@@ -1369,9 +1316,9 @@
             }
           };
         } else {
-          resultHeading.innerText = "⚠️ 90% એક્યુરસી જરૂરી છે";
+          resultHeading.innerText = "⚠️ 90% એક્યુરસી જરૂરી";
           resultHeading.style.color = "#ff5252";
-          nextActionBtn.innerText = "ફરીથી લેસન કરો";
+          nextActionBtn.innerText = "ફરી પ્રયાસ કરો";
           nextActionBtn.onclick = () => startLesson(currentLesson);
         }
       } else {
@@ -1413,7 +1360,7 @@
         authToggleText.innerHTML = "પહેલેથી એકાઉન્ટ છે? <span>Login કરો</span>";
       } else {
         authModalTitle.innerText = "Sign In";
-        authModalSubtitle.innerText = "તમારો કોર્સ પ્રોગ્રેસ અને સ્કોર સેવ રાખવા માટે કનેક્ટ થાઓ";
+        authModalSubtitle.innerText = "તમારો કોર્સ પ્રોગ્રેસ અને સ્કોર સેવ રાખવા માટે લૉગિન કરો";
         authSubmitBtn.innerText = "Login";
         authToggleText.innerHTML = "નવું એકાઉન્ટ બનાવવું છે? <span>Sign Up કરો</span>";
       }
